@@ -28,7 +28,6 @@ namespace PDFMorty.Search
         public List<dynamic> GetResult()
         {
             List<dynamic> queryResult = new List<dynamic>();
-            Console.WriteLine(GetFilterQuery());
             string url = $"{ BASE_URL }/{ _workaround[typeOfSearch] }/{ GetFilterQuery() }";
             dynamic response = RESTRequest.GetWithJsonResponse(url);
             foreach(var result in response.results)
@@ -40,6 +39,10 @@ namespace PDFMorty.Search
 
         private string GetFilterQuery()
         {
+            if (filters.Count == 0 )
+            {
+                return String.Empty;
+            }
             StringBuilder sb = new StringBuilder("?");
             foreach(KeyValuePair<string, string?> element in filters)
             {

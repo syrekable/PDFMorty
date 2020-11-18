@@ -20,7 +20,7 @@ namespace PDFMorty
             */
             Search_ search = SearchBuilder.Init()
                                            .WithSearchType(Searchable.Character)
-                                           .WithSearchFilters(new Dictionary<string, string?> { { "name", "Jerry" }, { "status", "unknown"} })
+                                           .WithSearchFilters(new Dictionary<string, string?>())
                                            .Build();
             foreach(var result in search.GetResult())
             {
