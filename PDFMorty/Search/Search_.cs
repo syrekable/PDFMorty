@@ -10,7 +10,7 @@ namespace PDFMorty.Search
     public class Search_
     {
         public Searchable typeOfSearch;
-        public Dictionary<string, string?> filters;
+        public Dictionary<string, string> filters;
         private readonly string BASE_URL = "https://rickandmortyapi.com/api";
         private readonly Dictionary<Searchable, string> _workaround;
 
@@ -44,7 +44,7 @@ namespace PDFMorty.Search
                 return String.Empty;
             }
             StringBuilder sb = new StringBuilder("?");
-            foreach(KeyValuePair<string, string?> element in filters)
+            foreach(KeyValuePair<string, string> element in filters)
             {
                 //in case I'll ever create a standard dict with all posibble API filters, 
                 //all initialised to null

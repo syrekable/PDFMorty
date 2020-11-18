@@ -19,7 +19,7 @@ namespace PDFMorty.Search
             return this;
         }
 
-        public SearchBuilder WithSearchFilters(Dictionary<string, string?> filters)
+        public SearchBuilder WithSearchFilters(Dictionary<string, string> filters)
         {
             _search.filters = filters;
             return this;
