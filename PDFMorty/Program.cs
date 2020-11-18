@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PDFMorty.Search;
 using PDFMorty.Validation;
-using PDFMorty.Search;
+using System;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace PDFMorty
 {
     class Program
     {
         static void Main(string[] args)
-        {
+        {/*
             string password;
             do
             {
@@ -16,12 +17,15 @@ namespace PDFMorty
                 password = Console.ReadLine().Replace("Password: ", "");
             } while (!PasswordValidator.Validate(password));
             Console.WriteLine("Password correct!");
-
+            */
             Search_ search = SearchBuilder.Init()
                                            .WithSearchType(Searchable.Character)
-                                           .WithSearchFilters(new Dictionary<string, string?> { { "name", "rick"} })
+                                           .WithSearchFilters(new Dictionary<string, string?> { { "name", "Jerry" }, { "status", "unknown"} })
                                            .Build();
-            Console.WriteLine(search.ToString());
+            foreach(var result in search.GetResult())
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(result));
+            }
         }
     }
 }
