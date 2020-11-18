@@ -19,7 +19,7 @@ namespace PDFMorty
             } while (!Validation.ValidatePassword(password));
             Console.WriteLine("Password correct!");
             */
-            /*
+            
             Search_ search = SearchBuilder.Init()
                                            .WithSearchType(Searchable.Character)
                                            .WithSearchFilters(new Dictionary<string, string?>())
@@ -28,8 +28,9 @@ namespace PDFMorty
             {
                 Console.WriteLine(JsonConvert.SerializeObject(result));
             }
-            */
+            /*
             PDFCreator pdf = new PDFCreator(@"first.pdf");
+            */
         }
     }
 }

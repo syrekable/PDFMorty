@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using PDFMorty.Entities;
+using Newtonsoft.Json;
 
 namespace PDFMorty.Validation
 {
@@ -24,13 +25,13 @@ namespace PDFMorty.Validation
         {
             //TODO: validate and serialize data
             Character character = CharacterBuilder.Init()
-                                                    .WithName(data.name)
-                                                    .WithStatus(data.status)
-                                                    .SpeciesOf(data.species)
-                                                    .OfGender(data.gender)
-                                                    .From(data.origin)
-                                                    .LastSeenAt(data.lastSeenAt)
-                                                    .PlayedIn(data.episodes)
+                                                    .WithName(JsonConvert.SerializeObject(data.name))
+                                                    .WithStatus(JsonConvert.SerializeObject(data.status))
+                                                    .SpeciesOf(JsonConvert.SerializeObject(data.species))
+                                                    .OfGender(JsonConvert.SerializeObject(data.gender))
+                                                    .From(JsonConvert.SerializeObject(data.origin))
+                                                    .LastSeenAt(JsonConvert.SerializeObject(data.lastSeenAt))
+                                                    .PlayedIn((ushort) data.episodes.Length)
                                                     .Build();
             return character;
         }
@@ -38,10 +39,10 @@ namespace PDFMorty.Validation
         public static Location ValidateLocation(dynamic data)
         {
             Location location = LocationBuilder.Init()
-                                                .WithName(data.name)
-                                                .OfType(data.type)
-                                                .FromDimension(data.dimension)
-                                                .WithThatManyResidents(data.residents)
+                                                .WithName(JsonConvert.SerializeObject(data.name))
+                                                .OfType(JsonConvert.SerializeObject(data.type))
+                                                .FromDimension(JsonConvert.SerializeObject(data.dimension))
+                                                .WithThatManyResidents((ushort) data.residents.Length)
                                                 .Build();
             return location;
         }
