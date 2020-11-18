@@ -3,6 +3,7 @@ using PDFMorty.Validation;
 using System;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using PDFMorty.PDF;
 
 namespace PDFMorty
 {
@@ -18,6 +19,7 @@ namespace PDFMorty
             } while (!PasswordValidator.Validate(password));
             Console.WriteLine("Password correct!");
             */
+            /*
             Search_ search = SearchBuilder.Init()
                                            .WithSearchType(Searchable.Character)
                                            .WithSearchFilters(new Dictionary<string, string?>())
@@ -26,6 +28,8 @@ namespace PDFMorty
             {
                 Console.WriteLine(JsonConvert.SerializeObject(result));
             }
+            */
+            PDFCreator pdf = new PDFCreator(@"first.pdf");
         }
     }
 }
