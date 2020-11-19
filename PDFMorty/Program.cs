@@ -21,6 +21,7 @@ namespace PDFMorty
                 Console.Write($"{SHELL_TEXT}Password: ");
                 password = Console.ReadLine().Replace("Password: ", string.Empty);
             } while (!Validation.Validation.ValidatePassword(password));
+            
             Console.WriteLine("Password correct!");
             
             //get search category
@@ -48,7 +49,7 @@ namespace PDFMorty
 
             
             Search_ search = SearchBuilder.Init()
-                                           .WithSearchType(category)
+                                           .WithSearchCategory(category)
                                            .WithSearchFilters(new Dictionary<string, string>{{ "dimension", "bear" } })
                                            .Build();
             Console.WriteLine(search.ToString());

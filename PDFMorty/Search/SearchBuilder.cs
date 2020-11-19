@@ -13,9 +13,9 @@ namespace PDFMorty.Search
 
         public Search_ Build() => _search;
 
-        public SearchBuilder WithSearchType(Searchable type)
+        public SearchBuilder WithSearchCategory(Searchable type)
         {
-            _search.typeOfSearch = type;
+            _search.categoryOfSearch = type;
             return this;
         }
 

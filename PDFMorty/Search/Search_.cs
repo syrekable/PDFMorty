@@ -9,7 +9,7 @@ namespace PDFMorty.Search
 {
     public class Search_
     {
-        public Searchable typeOfSearch;
+        public Searchable categoryOfSearch;
         public Dictionary<string, string> filters;
         private readonly string BASE_URL = "https://rickandmortyapi.com/api";
         private readonly Dictionary<Searchable, string> _workaround;
@@ -28,7 +28,7 @@ namespace PDFMorty.Search
         public List<dynamic> GetResult()
         {
             List<dynamic> queryResult = new List<dynamic>();
-            string url = $"{ BASE_URL }/{ _workaround[typeOfSearch] }/{ GetFilterQuery() }";
+            string url = $"{ BASE_URL }/{ _workaround[categoryOfSearch] }/{ GetFilterQuery() }";
             dynamic response = RESTRequest.GetWithJsonResponse(url);
             foreach(var result in response.results)
             {
