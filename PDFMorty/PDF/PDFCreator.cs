@@ -5,7 +5,7 @@ using MigraDoc.Rendering;
 
 namespace PDFMorty.PDF
 {
-    class PDFCreator
+    public class PDFCreator
     {
         const short ALIGNMENT = 100;
 
