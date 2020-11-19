@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PDFMorty.Entities
 {
-    class CharacterBuilder
+    public class CharacterBuilder
     {
         private Character _character;
 
