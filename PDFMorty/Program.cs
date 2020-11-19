@@ -1,7 +1,7 @@
 ﻿using PDFMorty.Search;
 using PDFMorty.Validation;
 using System;
-using System.Runtime;
+using PDFMorty.Entities;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using PDFMorty.PDF;
@@ -16,12 +16,13 @@ namespace PDFMorty
             string password, answer;
             Searchable category;
             //check password
+            /*
             do
             {
                 Console.Write($"{SHELL_TEXT}Password: ");
                 password = Console.ReadLine().Replace("Password: ", string.Empty);
             } while (!Validation.Validation.ValidatePassword(password));
-            
+            */
             Console.WriteLine("Password correct!");
             
             //get search category
@@ -50,12 +51,26 @@ namespace PDFMorty
             
             Search_ search = SearchBuilder.Init()
                                            .WithSearchCategory(category)
-                                           .WithSearchFilters(new Dictionary<string, string>{{ "dimension", "bear" } })
+                                           .WithSearchFilters(new Dictionary<string, string> { { "name", "Meeseeks"} })
                                            .Build();
-            Console.WriteLine(search.ToString());
-            /*
-            PDFCreator pdf = new PDFCreator(@"first.pdf");
-            */
+
+            if (category.Equals(Searchable.Character)){
+                List<Character> characters = new List<Character>();
+                foreach (var result in search.GetResult())
+                {
+                    Character character = CharacterBuilder.Init()
+                                                            .WithName(result.name)
+                                                            .WithStatus(result.status)
+                                                            .OfGender(result.gender)
+                                                            .From(result.origin.name)
+                                                            .SpeciesOf(result.species)
+                                                            .PlayedIn((ushort) result.episode.Count)
+                                                            .LastSeenAt(result.location.name)
+                                                            .Build();
+                    characters.Add(character);
+                }
+                PDFCreator pdf = new PDFCreator(@"first.pdf", characters);
+            }
         }
     }
 }

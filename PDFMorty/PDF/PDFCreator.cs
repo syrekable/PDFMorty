@@ -10,19 +10,46 @@ namespace PDFMorty.PDF
 {
     class PDFCreator
     {
+        const short ALIGNMENT = 100;
         public PDFCreator(string filename)
         {
             Document pdf = CreateDocument();
             pdf.UseCmykColor = true;
-            const bool unicode = false;
-            //dunno where to get PdfFontEmbedding from, it is explained nowhere
-            //const PdfFontEmbedding embedding = PdfFontEmbedding.Always;
-            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer();
-            pdfRenderer.Document = pdf;
+            PdfDocumentRenderer pdfRenderer = new PdfDocumentRenderer
+            {
+                Document = pdf
+            };
             pdfRenderer.RenderDocument();
             //TODO: welp, here I can save it to a stream, whatever that means.
             pdfRenderer.PdfDocument.Save(filename);
             Process.Start(filename);
+        }
+
+        public PDFCreator(string filename, List<PDFMorty.Entities.Character> characters)
+        {
+            Document document = new Document();
+            foreach(var character in characters)
+            {
+                Section section = document.AddSection();
+                section.Headers.Primary.AddParagraph(character.name);
+                section.AddParagraph($"status:{character.status, ALIGNMENT}");
+                section.AddParagraph($"species:{character.species, ALIGNMENT}");
+                section.AddParagraph($"gender:{character.gender, ALIGNMENT}");
+                section.AddParagraph($"origin:{character.origin, ALIGNMENT}");
+                section.AddParagraph($"last seen at:{character.location, ALIGNMENT}");
+                section.AddParagraph($"played in {character.numberOfEpisoded,ALIGNMENT} episodes");
+            }
+
+            PdfDocumentRenderer renderer = new PdfDocumentRenderer();
+            renderer.Document = document;
+            renderer.RenderDocument();
+            renderer.PdfDocument.Save(filename);
+            Process.Start(filename);
+        }
+
+        public PDFCreator(string filename, List<PDFMorty.Entities.Location> locations)
+        {
+
         }
 
         private Document CreateDocument()
@@ -39,7 +66,7 @@ namespace PDFMorty.PDF
         /// <summary>
         /// Defines the styles used in the document.
         /// </summary>
-        public static void DefineStyles(Document document)
+        private static void DefineStyles(Document document)
         {
             // Get the predefined style Normal.
             Style style = document.Styles["Normal"];

@@ -53,7 +53,7 @@ namespace PDFMorty.Search
 
         public override string ToString()
         {
-            return $"<Search> | type: {_workaround[typeOfSearch]} | filters {JsonConvert.SerializeObject(filters)}";
+            return $"<Search> | type: {_workaround[categoryOfSearch]} | filters {JsonConvert.SerializeObject(filters)}";
         }
     }
 }

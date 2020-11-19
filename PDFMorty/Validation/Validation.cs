@@ -13,8 +13,8 @@ namespace PDFMorty.Validation
         {
             /*
              * the password shall consist of:
-                -at least one lower
-                -at least one uppercase letter, 
+             *  -at least one uppercase letter,
+                -at least one lower 
                 -at least one digit,
                 -at least one symbol from [.,*]
                 -at least 8 and at most 20 characters
