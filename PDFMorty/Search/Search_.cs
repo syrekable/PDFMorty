@@ -39,19 +39,14 @@ namespace PDFMorty.Search
 
         private string GetFilterQuery()
         {
-            if (filters.Count == 0 )
+            if (filters.Count == 0)
             {
-                return String.Empty;
+                return string.Empty;
             }
             StringBuilder sb = new StringBuilder("?");
             foreach(KeyValuePair<string, string> element in filters)
             {
-                //in case I'll ever create a standard dict with all posibble API filters, 
-                //all initialised to null
-                if (element.Value != null)
-                {
-                    sb.Append($"{element.Key}={element.Value}&");
-                }
+                sb.Append($"{element.Key}={element.Value}&");
             }
             return sb.ToString().TrimEnd('&');
         }
