@@ -59,9 +59,9 @@ namespace PDFMorty.Search
         /// A function used to make a query from the filters given by the user.
         /// </summary>
         /// <returns>a string query in the form "?key1=value1&key2=value2...&keyn=valuen"</returns>
-        private string GetFilterQuery()
+        public string GetFilterQuery()
         {
-            if (filters == null)
+            if (filters.Count == 0)
             {
                 return string.Empty;
             }

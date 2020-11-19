@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PDFMorty.Entities
 {
-    public class LocationBuilder
+    class LocationBuilder
     {
         private Location _location;
 

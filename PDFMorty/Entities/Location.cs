@@ -1,6 +1,6 @@
 ﻿namespace PDFMorty.Entities
 {
-    public struct Location
+    struct Location
     {
         public string name, type, dimension;
         public ushort numberOfResidents;

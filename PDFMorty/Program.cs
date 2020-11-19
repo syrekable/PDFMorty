@@ -21,7 +21,7 @@ namespace PDFMorty
             {
                 Console.Write("Password: ");
                 password = Console.ReadLine().Replace("Password: ", string.Empty);
-            } while (!Validation.Validator.ValidatePassword(password));
+            } while (!Validation.Validation.ValidatePassword(password));
 
             Console.WriteLine("Password correct!");
             GreetTheUser();

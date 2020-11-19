@@ -2,7 +2,7 @@
 
 namespace PDFMorty.Search
 {
-    public class SearchBuilder
+    class SearchBuilder
     {
         private Search_ _search = new Search_();
 
@@ -19,7 +19,7 @@ namespace PDFMorty.Search
             return this;
         }
 
-        public SearchBuilder WithSearchFilters(Dictionary<string, string> filters = null)
+        public SearchBuilder WithSearchFilters(Dictionary<string, string> filters)
         {
             _search.filters = filters;
             return this;

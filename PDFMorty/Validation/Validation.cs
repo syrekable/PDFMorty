@@ -7,7 +7,7 @@ namespace PDFMorty.Validation
     /// <summary>
     /// Validation utilities
     /// </summary>
-    public static class Validator
+    static class Validation
     {
         public static bool ValidatePassword(string password)
         {

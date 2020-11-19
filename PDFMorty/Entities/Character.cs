@@ -1,6 +1,6 @@
 ﻿namespace PDFMorty.Entities
 {
-    public struct Character
+    struct Character
     {
         public string name, status, species, gender, origin, location, image;
         public ushort numberOfEpisoded;
