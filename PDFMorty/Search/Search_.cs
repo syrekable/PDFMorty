@@ -11,6 +11,8 @@ namespace PDFMorty.Search
     {
         public Searchable categoryOfSearch;
         public Dictionary<string, string> filters;
+        public static List<string> characterFilters = new List<string> { "name", "status", "species", "gender" };
+        public static List<string> locationFilters = new List<string> { "name", "type", "dimension" };
         private readonly string BASE_URL = "https://rickandmortyapi.com/api";
         private readonly Dictionary<Searchable, string> _workaround;
 
@@ -66,7 +68,10 @@ namespace PDFMorty.Search
             StringBuilder sb = new StringBuilder("?");
             foreach(KeyValuePair<string, string> element in filters)
             {
-                sb.Append($"{element.Key}={element.Value}&");
+                if (!(element.Value == string.Empty))
+                {
+                    sb.Append($"{element.Key}={element.Value}&");
+                }
             }
             return sb.ToString().TrimEnd('&');
         }

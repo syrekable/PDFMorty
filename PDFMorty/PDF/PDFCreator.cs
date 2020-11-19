@@ -14,7 +14,7 @@ namespace PDFMorty.PDF
             Document document = new Document();
 
             Section section = document.AddSection();
-            section.Headers.Primary.AddParagraph($"Printing {characters.Count} results");
+            section.Headers.Primary.AddParagraph($"Printing all {characters.Count} results");
 
             foreach (var character in characters)
             {
@@ -40,7 +40,7 @@ namespace PDFMorty.PDF
             Document document = new Document();
 
             Section section = document.AddSection();
-            section.Headers.Primary.AddParagraph($"Printing {locations.Count} results");
+            section.Headers.Primary.AddParagraph($"Printing all {locations.Count} results");
 
             foreach (var location in locations)
             {

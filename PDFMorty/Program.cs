@@ -10,7 +10,7 @@ namespace PDFMorty
 {
     class Program
     {
-        private static readonly string SHELL_TEXT = $"{Environment.UserName}@PDFMorty-shell-v.1.0>";
+        private static readonly string SHELL_TEXT = $"{Environment.UserName}@PDFMorty-shell-v.1.0> ";
         static void Main(string[] args)
         {
             string password, answer;
@@ -48,10 +48,14 @@ namespace PDFMorty
                 }
             } while (category.Equals(Searchable.Null));
 
-            
+            //get filters
+            Dictionary<string, string> filters = GetUserDefinedFilters(category);
+
+            Console.WriteLine("Search pending...");
+
             Search_ search = SearchBuilder.Init()
                                            .WithSearchCategory(category)
-                                           .WithSearchFilters(new Dictionary<string, string>())
+                                           .WithSearchFilters(filters)
                                            .Build();
 
             if (category.Equals(Searchable.Character)){
@@ -87,7 +91,36 @@ namespace PDFMorty
                 _ = new PDFCreator($"locations.pdf", locations);
             }
 
-            Console.WriteLine("Thanks for using the app!");
+            Console.WriteLine($"{SHELL_TEXT}Thanks for using the app!");
+        }
+
+        private static Dictionary<string, string> GetUserDefinedFilters(Searchable category)
+        {
+            Dictionary<string, string> filters = new Dictionary<string, string>();
+            List<string> filtersRange;
+            if (category.Equals(Searchable.Character))
+            {
+                filtersRange = Search_.characterFilters;
+            }
+            else
+            {
+                filtersRange = Search_.locationFilters;
+            }
+            Console.WriteLine("You will be asked to fill in the filter info for this category.\nIf you don't want a specific filter, hit [Enter].");
+            //make this bitch enumerable
+            foreach (var filter in filtersRange)
+            {
+                Console.Write($"{SHELL_TEXT}{filter}:");
+                string value = Console.ReadLine().Replace($"{SHELL_TEXT}{filter}:", string.Empty);
+                //since I don't know how to check if only the [Enter] was pressed, here's a hack :')
+                if(value.Length <= 1)
+                {
+                    value = string.Empty;
+                }
+                filters.Add(filter, value);
+            }
+            return filters;
         }
     }
+    
 }
