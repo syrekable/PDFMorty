@@ -32,7 +32,7 @@ namespace PDFMorty
             {
                 do
                 {
-                    Console.WriteLine($"{SHELL_TEXT}What are you looking for?");
+                    Console.WriteLine($"What are you looking for?");
                     Console.WriteLine("[c] - character");
                     Console.WriteLine("[l] - location");
                     Console.Write(SHELL_TEXT);
@@ -109,7 +109,7 @@ namespace PDFMorty
                     Console.WriteLine("There were no results for the search with your filters. Try again or exit. \n");
                 }
             }
-            Console.WriteLine($"{SHELL_TEXT}Thanks for using the app!");
+            Console.WriteLine("Thanks for using the app!");
         }
         //get search category
         private static Dictionary<string, string> GetUserDefinedFilters(Searchable category)
