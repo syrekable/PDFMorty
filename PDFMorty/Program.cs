@@ -51,7 +51,7 @@ namespace PDFMorty
             
             Search_ search = SearchBuilder.Init()
                                            .WithSearchCategory(category)
-                                           .WithSearchFilters(new Dictionary<string, string> { { "name", "Meeseeks"} })
+                                           .WithSearchFilters(new Dictionary<string, string> { { "gender", "female"}, { "status", "unknown"} })
                                            .Build();
 
             if (category.Equals(Searchable.Character)){
@@ -69,8 +69,24 @@ namespace PDFMorty
                                                             .Build();
                     characters.Add(character);
                 }
-                PDFCreator pdf = new PDFCreator(@"first.pdf", characters);
+                _ = new PDFCreator($"characters.pdf", characters);
             }
+            else
+            {
+                List<Location> locations = new List<Location>();
+                foreach(var result in search.GetResult())
+                {
+                    Location location = LocationBuilder.Init()
+                                                        .WithName(result.name)
+                                                        .FromDimension(result.dimension)
+                                                        .OfType(result.type)
+                                                        .WithThatManyResidents((ushort) result.residents.Count)
+                                                        .Build();
+                    locations.Add(location);
+                }
+                _ = new PDFCreator($"locations.pdf", locations);
+            }
+            Console.WriteLine("Thanks for using the app!");
         }
     }
 }

@@ -37,7 +37,7 @@ namespace PDFMorty.Search
             return queryResult;
         }
 
-        private string GetFilterQuery()
+        public string GetFilterQuery()
         {
             if (filters.Count == 0)
             {
