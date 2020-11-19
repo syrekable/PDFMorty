@@ -51,7 +51,7 @@ namespace PDFMorty
             
             Search_ search = SearchBuilder.Init()
                                            .WithSearchCategory(category)
-                                           .WithSearchFilters(new Dictionary<string, string> { { "gender", "female"}, { "status", "unknown"} })
+                                           .WithSearchFilters(new Dictionary<string, string>())
                                            .Build();
 
             if (category.Equals(Searchable.Character)){
@@ -86,6 +86,7 @@ namespace PDFMorty
                 }
                 _ = new PDFCreator($"locations.pdf", locations);
             }
+
             Console.WriteLine("Thanks for using the app!");
         }
     }
