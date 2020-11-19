@@ -16,13 +16,13 @@ namespace PDFMorty
             string password, answer;
             Searchable category;
             //check password
-            /*
+            
             do
             {
                 Console.Write($"{SHELL_TEXT}Password: ");
                 password = Console.ReadLine().Replace("Password: ", string.Empty);
             } while (!Validation.Validation.ValidatePassword(password));
-            */
+            
             Console.WriteLine("Password correct!");
             
             //get search category
@@ -58,39 +58,47 @@ namespace PDFMorty
                                            .WithSearchFilters(filters)
                                            .Build();
 
-            if (category.Equals(Searchable.Character)){
-                List<Character> characters = new List<Character>();
-                foreach (var result in search.GetResult())
-                {
-                    Character character = CharacterBuilder.Init()
-                                                            .WithName(result.name)
-                                                            .WithStatus(result.status)
-                                                            .OfGender(result.gender)
-                                                            .From(result.origin.name)
-                                                            .SpeciesOf(result.species)
-                                                            .PlayedIn((ushort) result.episode.Count)
-                                                            .LastSeenAt(result.location.name)
-                                                            .Build();
-                    characters.Add(character);
-                }
-                _ = new PDFCreator($"characters.pdf", characters);
-            }
-            else
+            try
             {
-                List<Location> locations = new List<Location>();
-                foreach(var result in search.GetResult())
+                List<dynamic> results = search.GetResult();
+                if (category.Equals(Searchable.Character))
                 {
-                    Location location = LocationBuilder.Init()
-                                                        .WithName(result.name)
-                                                        .FromDimension(result.dimension)
-                                                        .OfType(result.type)
-                                                        .WithThatManyResidents((ushort) result.residents.Count)
-                                                        .Build();
-                    locations.Add(location);
+                    List<Character> characters = new List<Character>();
+                    foreach (var result in results)
+                    {
+                        Character character = CharacterBuilder.Init()
+                                                                .WithName(result.name)
+                                                                .WithStatus(result.status)
+                                                                .OfGender(result.gender)
+                                                                .From(result.origin.name)
+                                                                .SpeciesOf(result.species)
+                                                                .PlayedIn((ushort)result.episode.Count)
+                                                                .LastSeenAt(result.location.name)
+                                                                .Build();
+                        characters.Add(character);
+                    }
+                    _ = new PDFCreator($"characters.pdf", characters);
                 }
-                _ = new PDFCreator($"locations.pdf", locations);
+                else
+                {
+                    List<Location> locations = new List<Location>();
+                    foreach (var result in results)
+                    {
+                        Location location = LocationBuilder.Init()
+                                                            .WithName(result.name)
+                                                            .FromDimension(result.dimension)
+                                                            .OfType(result.type)
+                                                            .WithThatManyResidents((ushort)result.residents.Count)
+                                                            .Build();
+                        locations.Add(location);
+                    }
+                    _ = new PDFCreator($"locations.pdf", locations);
+                }
             }
-
+            catch (System.Net.Http.HttpRequestException)
+            {
+                Console.WriteLine("There were no results for the search with your filters.");
+            }
             Console.WriteLine($"{SHELL_TEXT}Thanks for using the app!");
         }
 
@@ -113,10 +121,7 @@ namespace PDFMorty
                 Console.Write($"{SHELL_TEXT}{filter}:");
                 string value = Console.ReadLine().Replace($"{SHELL_TEXT}{filter}:", string.Empty);
                 //since I don't know how to check if only the [Enter] was pressed, here's a hack :')
-                if(value.Length <= 1)
-                {
-                    value = string.Empty;
-                }
+                if(value.Length <= 1){ value = string.Empty; }
                 filters.Add(filter, value);
             }
             return filters;
